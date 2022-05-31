@@ -43,7 +43,7 @@ split2(L, I, N,SOut)->
     true -> split2(tl(L), I+1, N,SOut)
 end.
 
-
+% Parametro de inicio -> "case"
 run(FileName) ->
     FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.out",
