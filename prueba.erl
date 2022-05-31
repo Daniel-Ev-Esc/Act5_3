@@ -1,6 +1,6 @@
 -module(prueba).
--export([readlines/1, get_all_lines/1, run/1, split2/3]).
--export([join2/3]).
+-export([readlines/1, get_all_lines/1, run/1, split2/4]).
+-export([join2/4]).
 
 
 readlines(FileName) ->
@@ -15,17 +15,17 @@ get_all_lines(Device) ->
         Line -> Line ++ get_all_lines(Device)
     end.
 
-join2(N1,O,N2) -> if
-    O == "+" -> io:format("Lei: ~p~n", [N1 + N2]);
-    O == "-" -> io:format("Lei: ~p~n", [N1 - N2]);
-    O == "*" -> io:format("Lei: ~p~n", [N1 * N2]);
-    O == "/" -> io:format("Lei: ~p~n", [N1 / N2]);
-    O == "%" -> io:format("Lei: ~p~n", [N1 rem N2]);
+join2(N1,O,N2,SOut) -> if
+    O == "+" -> io:format(SOut,"~p~n", [N1 + N2]);
+    O == "-" -> io:format(SOut,"~p~n", [N1 - N2]);
+    O == "*" -> io:format(SOut,"~p~n", [N1 * N2]);
+    O == "/" -> io:format(SOut,"~p~n", [N1 / N2]);
+    O == "%" -> io:format(SOut,"~p~n", [N1 rem N2]);
     true -> io:format("No support for negative numbers. ̃n")
 
 end.
 
-split2(L, I, N)-> 
+split2(L, I, N,SOut)-> 
     if I < (N + 1) ->
         L0 = string:lexemes(hd(L), " "),
         N1 = list_to_integer(lists:nth(1, L0)),
@@ -33,27 +33,47 @@ split2(L, I, N)->
         N2 = list_to_integer(lists:nth(3, L0)),
         
         %Aqui hay que poner que gusrade el elemento que le amnde Operations
-        join2(N1, Operador, N2),
+        join2(N1, Operador, N2,SOut),
         M = tl(L),
         if M /= [] ->
-            split2(M, I+1, N);
-            true -> io:format("Lectura terminada")
+            split2(M, I+1, N,SOut);
+            true -> io:format("Lectura terminada~n")
         end;
 
-    true -> split2(tl(L), I+1, N)
+    true -> split2(tl(L), I+1, N,SOut)
 end.
 
 
 run(FileName) ->
-    FileIn1 = FileName ++ "4.in",
+    FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.out",
+    FileIn2 = FileName ++ "2.in",
+    FileOut2 = FileName ++ "2.out",
+    FileIn3 = FileName ++ "3.in",
+    FileOut3 = FileName ++ "3.out",
+    FileIn4 = FileName ++ "4.in",
+    FileOut4 = FileName ++ "4.out",
 
-    L1 = readlines(FileIn1),
-    L1,
-    L2 = string:lexemes(L1, "\n"),
-    L2,
-    % L3 = string:lexemes(lists:nth(2, L2), " "),
-    % L3,
-    L2Len = length(L2),
-    L2Len,
-    split2(L2, 1, L2Len).
+    L1_1 = readlines(FileIn1),
+    L1_2 = string:lexemes(L1_1, "\n"),
+    L1_2Len = length(L1_2),
+    {ok, SOut1} = file:open(FileOut1, [write]),
+    split2(L1_2, 1, L1_2Len,SOut1),
+
+    L2_1 = readlines(FileIn2),
+    L2_2 = string:lexemes(L2_1, "\n"),
+    L2_2Len = length(L2_2),
+    {ok, SOut2} = file:open(FileOut2, [write]),
+    split2(L2_2, 1, L2_2Len,SOut2),
+    
+    L3_1 = readlines(FileIn3),
+    L3_2 = string:lexemes(L3_1, "\n"),
+    L3_2Len = length(L3_2),
+    {ok, SOut3} = file:open(FileOut3, [write]),
+    split2(L3_2, 1, L3_2Len,SOut3),
+
+    L4_1 = readlines(FileIn4),
+    L4_2 = string:lexemes(L4_1, "\n"),
+    L4_2Len = length(L4_2),
+    {ok, SOut4} = file:open(FileOut4, [write]),
+    split2(L4_2, 1, L4_2Len,SOut4).
