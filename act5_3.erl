@@ -19,7 +19,12 @@ run(FileName) ->
     L1 = readlines(FileName),
     L1,
     L2 = string:lexemes(L1, "\n"),
-    L2.
+    L2,
+    L3 = string:lexemes(lists:nth(2, L2), " "),
+    % Con esto ya me separa el primer elemento de la lista en un arreglo de 3 strings,
+    % Pero ahora no sé cómo hacerlo iterativo y meterlo en la lista 
+    % para poder ya tener todos los arreglos de 3
+    L3.
 
 % runSequencial(File)->
 %     FileIn = File ++ "1.in",
