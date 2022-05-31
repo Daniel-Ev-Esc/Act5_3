@@ -16,11 +16,11 @@ get_all_lines(Device) ->
     end.
 
 join2(N1,O,N2) -> if
-    O == '+' -> N1 + N2;
-    O == '-' -> N1 - N2;
-    O == '*' -> N1 * N2;
-    O == '/' -> N1 / N2;
-    O == '%' -> N1 rem N2;
+    O == "+" -> io:format("Lei: ~p~n", N1 + N2);
+    O == "-" -> N1 - N2;
+    O == "*" -> N1 * N2;
+    O == "/" -> N1 / N2;
+    O == "%" -> N1 rem N2;
     true -> io:format("No support for negative numbers. ̃n")
 end.
 
@@ -28,7 +28,7 @@ split2([H|T], I, N)-> if
     I < (N + 1) ->
         L0 = string:lexemes(H, " "),
         N1 = list_to_integer(lists:nth(1, L0)),
-        Operador = list_to_integer(lists:nth(2, L0)),
+        Operador = lists:nth(2, L0),
         N2 = list_to_integer(lists:nth(3, L0)),
         
         %Aqui hay que poner que gusrade el elemento que le amnde Operations
