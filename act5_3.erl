@@ -1,6 +1,6 @@
 -module(act5_3).
 -export([readlines/1, get_all_lines/1,  runSequencial/1, split2/4, runParallel/1, operacionP/2]).
--export([join2/4]).
+-export([join2/4,operaciones/2]).
 
 -import(timer, [now_diff/2]).
 
@@ -45,42 +45,29 @@ split2(L, I, N,SOut)->
     true -> split2(tl(L), I+1, N,SOut)
 end.
 
+
+operaciones(FileIn,FileOut)->
+    L1 = readlines(FileIn),
+    L2 = string:lexemes(L1, "\n"),
+    L2Len = length(L2),
+    {ok, SOut} = file:open(FileOut, [write]),
+    split2(L2, 1, L2Len,SOut).
+
 % Parametro de inicio -> "case"
 runSequencial(FileName) ->
     T1 = time(),
     FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.out",
+    operaciones(FileIn1,FileOut1),
     FileIn2 = FileName ++ "2.in",
     FileOut2 = FileName ++ "2.out",
+    operaciones(FileIn2,FileOut2),
     FileIn3 = FileName ++ "3.in",
     FileOut3 = FileName ++ "3.out",
+    operaciones(FileIn3,FileOut3),
     FileIn4 = FileName ++ "4.in",
     FileOut4 = FileName ++ "4.out",
-
-    L1_1 = readlines(FileIn1),
-    L1_2 = string:lexemes(L1_1, "\n"),
-    L1_2Len = length(L1_2),
-    {ok, SOut1} = file:open(FileOut1, [write]),
-    split2(L1_2, 1, L1_2Len,SOut1),
-
-    L2_1 = readlines(FileIn2),
-    L2_2 = string:lexemes(L2_1, "\n"),
-    L2_2Len = length(L2_2),
-    {ok, SOut2} = file:open(FileOut2, [write]),
-    split2(L2_2, 1, L2_2Len,SOut2),
-    
-    L3_1 = readlines(FileIn3),
-    L3_2 = string:lexemes(L3_1, "\n"),
-    L3_2Len = length(L3_2),
-    {ok, SOut3} = file:open(FileOut3, [write]),
-    split2(L3_2, 1, L3_2Len,SOut3),
-
-    L4_1 = readlines(FileIn4),
-    L4_2 = string:lexemes(L4_1, "\n"),
-    L4_2Len = length(L4_2),
-    {ok, SOut4} = file:open(FileOut4, [write]),
-    split2(L4_2, 1, L4_2Len,SOut4),
-
+    operaciones(FileIn4,FileOut4),
     T2 = time(),
     TimeIs = now_diff(T2,T1),
     io:format("~p~n",[TimeIs]).
