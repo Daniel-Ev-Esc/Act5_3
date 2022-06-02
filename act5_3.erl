@@ -1,6 +1,6 @@
 -module(act5_3).
 -export([readlines/1, get_all_lines/1, run/1, split2/4]).
--export([join2/4]).
+-export([join2/4,operaciones/1]).
 
 
 readlines(FileName) ->
@@ -43,10 +43,16 @@ split2(L, I, N,SOut)->
     true -> split2(tl(L), I+1, N,SOut)
 end.
 
+operaciones(FileName)->
+
+end.
+
 % Parametro de inicio -> "case"
 run(FileName) ->
+
     FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.out",
+    operaciones(FileIn1,FileOut1)
     FileIn2 = FileName ++ "2.in",
     FileOut2 = FileName ++ "2.out",
     FileIn3 = FileName ++ "3.in",
