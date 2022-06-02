@@ -2,6 +2,9 @@
 -export([readlines/1, get_all_lines/1,  runSequencial/1, split2/4, runParallel/1, operacionP/2]).
 -export([join2/4]).
 
+-import(timer, [now_diff/2]).
+
+
 readlines(FileName) ->
     {ok, Device} = file:open(FileName, read),
     try get_all_lines(Device)
@@ -44,6 +47,7 @@ end.
 
 % Parametro de inicio -> "case"
 runSequencial(FileName) ->
+    T1 = time(),
     FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.out",
     FileIn2 = FileName ++ "2.in",
@@ -75,14 +79,25 @@ runSequencial(FileName) ->
     L4_2 = string:lexemes(L4_1, "\n"),
     L4_2Len = length(L4_2),
     {ok, SOut4} = file:open(FileOut4, [write]),
-    split2(L4_2, 1, L4_2Len,SOut4).
+    split2(L4_2, 1, L4_2Len,SOut4),
+
+    T2 = time(),
+    TimeIs = now_diff(T2,T1),
+    io:format("~p~n",[TimeIs]).
+
 
 operacionP(FileIn,FileOut) -> 
+    T1 = time(),
+
     L1_1 = readlines(FileIn),
     L1_2 = string:lexemes(L1_1, "\n"),
     L1_2Len = length(L1_2),
     {ok, SOut1} = file:open(FileOut, [write]),
-    split2(L1_2, 1, L1_2Len,SOut1).
+    split2(L1_2, 1, L1_2Len,SOut1),
+
+    T2 = time(),
+    TimeIs = now_diff(T2,T1),
+    io:format("Tiempo ~p~n",[TimeIs]).
 
 runParallel(FileName) -> 
     FileIn1 = FileName ++ "1.in",
