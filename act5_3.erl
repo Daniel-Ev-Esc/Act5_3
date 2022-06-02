@@ -2,7 +2,6 @@
 -export([readlines/1, get_all_lines/1,  runSequencial/1, split2/4, runParallel/1, operacionP/2]).
 -export([join2/4]).
 
-
 readlines(FileName) ->
     {ok, Device} = file:open(FileName, read),
     try get_all_lines(Device)
