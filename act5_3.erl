@@ -4,6 +4,8 @@
 
 -import(timer, [now_diff/2]).
 
+% Speedup = T1 / Tp = 0 / 0 = 0 
+% El código realiza las operaciones en milisegundos, por lo que, el tiempo nos lo representó como un 0. 
 
 readlines(FileName) ->
     {ok, Device} = file:open(FileName, read),
