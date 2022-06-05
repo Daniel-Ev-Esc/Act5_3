@@ -1,6 +1,7 @@
 -module(act5_3).
 -export([readlines/1, get_all_lines/1,  runSequencial/1, split2/4, runParallel/1, operacionP/2]).
 -export([join2/4,operaciones/2]).
+-export([run/0]).
 
 -import(timer, [now_diff/2]).
 
@@ -57,6 +58,7 @@ operaciones(FileIn,FileOut)->
 
 % Parametro de inicio -> "case"
 runSequencial(FileName) ->
+    io:format("---RunSequencial---~n"),
     T1 = time(),
     FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.out",
@@ -89,6 +91,8 @@ operacionP(FileIn,FileOut) ->
     io:format("Tiempo ~p~n",[TimeIs]).
 
 runParallel(FileName) -> 
+    io:format("---RunParallel---~n"),
+
     FileIn1 = FileName ++ "1.in",
     FileOut1 = FileName ++ "1.2.out",
     FileIn2 = FileName ++ "2.in",
@@ -102,3 +106,7 @@ runParallel(FileName) ->
     spawn(act5_3,operacionP,[FileIn2,FileOut2]),
     spawn(act5_3,operacionP,[FileIn3,FileOut3]),
     spawn(act5_3,operacionP,[FileIn4,FileOut4]).
+
+run() ->
+    runSequencial("case"),
+    runParallel("case").
