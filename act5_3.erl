@@ -8,18 +8,21 @@
 % Speedup = T1 / Tp = 0 / 0 = 0 
 % El código realiza las operaciones en milisegundos, por lo que, el tiempo nos lo representó como un 0. 
 
+%COMPLEJIDAD: O(1)
 readlines(FileName) ->
     {ok, Device} = file:open(FileName, read),
     try get_all_lines(Device)
       after file:close(Device)
     end.
 
+%COMPLEJIDAD: O(n)
 get_all_lines(Device) ->
     case io:get_line(Device, "") of
         eof  -> [];
         Line -> Line ++ get_all_lines(Device)
     end.
 
+%COMPLEJIDAD: O(1)
 join2(N1,O,N2,SOut) -> if
     O == "+" -> io:format(SOut,"~p~n", [N1 + N2]);
     O == "-" -> io:format(SOut,"~p~n", [N1 - N2]);
@@ -27,9 +30,9 @@ join2(N1,O,N2,SOut) -> if
     O == "/" -> io:format(SOut,"~p~n", [N1 / N2]);
     O == "%" -> io:format(SOut,"~p~n", [N1 rem N2]);
     true -> io:format("No support for negative numbers. ̃n")
-
 end.
 
+%COMPLEJIDAD: O(n)
 split2(L, I, N,SOut)-> 
     if I < (N + 1) ->
         L0 = string:lexemes(hd(L), " "),
@@ -49,6 +52,7 @@ split2(L, I, N,SOut)->
 end.
 
 
+%COMPLEJIDAD: O(1)
 operaciones(FileIn,FileOut)->
     L1 = readlines(FileIn),
     L2 = string:lexemes(L1, "\n"),
@@ -56,7 +60,7 @@ operaciones(FileIn,FileOut)->
     {ok, SOut} = file:open(FileOut, [write]),
     split2(L2, 1, L2Len,SOut).
 
-% Parametro de inicio -> "case"
+%COMPLEJIDAD: O(1)
 runSequencial(FileName) ->
     io:format("---RunSequencial---~n"),
     T1 = time(),
@@ -76,7 +80,7 @@ runSequencial(FileName) ->
     TimeIs = now_diff(T2,T1),
     io:format("~p~n",[TimeIs]).
 
-
+%COMPLEJIDAD: O(1)
 operacionP(FileIn,FileOut) -> 
     T1 = time(),
 
@@ -90,6 +94,7 @@ operacionP(FileIn,FileOut) ->
     TimeIs = now_diff(T2,T1),
     io:format("Tiempo ~p~n",[TimeIs]).
 
+%COMPLEJIDAD: O(1)
 runParallel(FileName) -> 
     io:format("---RunParallel---~n"),
 
@@ -107,6 +112,7 @@ runParallel(FileName) ->
     spawn(act5_3,operacionP,[FileIn3,FileOut3]),
     spawn(act5_3,operacionP,[FileIn4,FileOut4]).
 
+%COMPLEJIDAD: O(1)
 run() ->
     runSequencial("case"),
     runParallel("case").
