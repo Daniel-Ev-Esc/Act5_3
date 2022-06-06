@@ -5,8 +5,11 @@
 
 -import(timer, [now_diff/2]).
 
-% Speedup = T1 / Tp = 0 / 0 = 0 
-% El código realiza las operaciones en milisegundos, por lo que, el tiempo nos lo representó como un 0. 
+% T1 = 2
+% Tp = 0
+
+% El código realiza las operaciones en milisegundos, por lo que, el tiempo nos lo representó como un 0. Sin embargo,
+% se vió una diferencia entre la versión secuencial y la paralela.
 
 %COMPLEJIDAD: O(1)
 readlines(FileName) ->
