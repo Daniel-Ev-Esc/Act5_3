@@ -1,3 +1,9 @@
+% act5_3.erl
+%
+% A01568178 Alexa Geraldine Torres Charles
+% A00830265 Carmina López Palacios
+% A00831289 Daniel Evaristo Escalera Bonilla
+
 -module(act5_3).
 -export([readlines/1, get_all_lines/1,  runSequencial/1, split2/4, runParallel/1, operacionP/2]).
 -export([join2/4,operaciones/2]).
@@ -81,7 +87,7 @@ runSequencial(FileName) ->
     operaciones(FileIn4,FileOut4),
     T2 = time(),
     TimeIs = now_diff(T2,T1),
-    io:format("~p~n",[TimeIs]).
+    io:format("Tiempo: ~p~n",[TimeIs]).
 
 %COMPLEJIDAD: O(1)
 operacionP(FileIn,FileOut) -> 
